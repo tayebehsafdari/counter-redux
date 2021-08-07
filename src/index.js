@@ -2,18 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
-import {createStore} from 'redux';
+// import {createStore} from 'redux';
+import {createSlice, configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import counterReducer from "./reducers/counterReducer";
 
-let store = createStore(counterReducer);
+// let store = createStore(counterReducer);
+
+console.log("createSlice: ", createSlice);
+console.log("configureStore: ", configureStore);
 
 ReactDOM.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <App/>
-        </Provider>
+        {/*<Provider store={store}>*/}
+        {/*    <App/>*/}
+        {/*</Provider>*/}
     </React.StrictMode>,
     document.getElementById('root')
 );
