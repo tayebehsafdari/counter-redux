@@ -10,14 +10,37 @@ import counterReducer from "./reducers/counterReducer";
 
 // let store = createStore(counterReducer);
 
-console.log("createSlice: ", createSlice);
-console.log("configureStore: ", configureStore);
+const counterSlice = createSlice({
+    name: 'counter',
+    initialState: {
+        count: 0
+    },
+    reducers: {
+        incremented: state => {
+            state.count += 1;
+        },
+        decremented: state => {
+            state.count -= 1;
+        }
+    }
+});
+
+export const {incremented, decremented} = counterSlice.actions;
+const store = configureStore({
+    reducer: counterSlice.reducer
+});
+
+store.subscribe(() => console.log("subscribe getState: ", store.getState()));
+
+store.dispatch(incremented());
+store.dispatch(incremented());
+store.dispatch(decremented());
 
 ReactDOM.render(
     <React.StrictMode>
-        {/*<Provider store={store}>*/}
-        {/*    <App/>*/}
-        {/*</Provider>*/}
+        <Provider store={store}>
+            <App/>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );
