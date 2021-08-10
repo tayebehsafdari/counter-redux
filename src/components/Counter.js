@@ -1,25 +1,27 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {useSelector, useDispatch} from 'react-redux';
-import {incremented, decremented} from './counterSlice';
+import {increment, decrement, reset, onChange, selectCount} from './counterSlice';
 
 function Counter(props) {
     console.log("props: ", props);
-    const count = useSelector(state => state.count);
+    const count = useSelector(selectCount);
     const dispatch = useDispatch();
+    const initialCount = 0;
 
     return (
         <div className="input-group my-5">
-            <span className="input-group-text" onClick={() => props.reset()}>Reset</span>
-            <span className="input-group-text" onClick={() => dispatch(decremented())}>-</span>
-            <input type="text" className="form-control" value={count} onChange={(e) => props.onChange(e)}/>
-            <span className="input-group-text" onClick={() => dispatch(incremented())}>+</span>
+            <span className="input-group-text" onClick={() => dispatch(reset(initialCount))}>Reset</span>
+            <span className="input-group-text" onClick={() => dispatch(decrement())}>-</span>
+            <input type="text" className="form-control" value={count}
+                   onChange={(e) => dispatch(onChange(e.target.value))}/>
+            <span className="input-group-text" onClick={() => dispatch(increment())}>+</span>
         </div>
     );
 }
 
-const mapStateToProps = state => {
-    console.log("mapStateToProps: ", state);
+const mapStateToProps = (state, ownProps) => {
+    console.log("mapStateToProps: ", state, ownProps);
     return {count: state.count};
 };
 
