@@ -6,6 +6,13 @@ import {Provider} from 'react-redux';
 import App from './components/App';
 import store from './components/store';
 
+console.log("store: ", store);
+// console.log("store dispatch: ", store.dispatch());
+// console.log("store getState: ", store.getState());
+// console.log("store liftedStore: ", store.liftedStore);
+// store.replaceReducer(() => console.log("store replaceReducer: "));
+// store.subscribe(() => console.log("store subscribe: ", store.getState()));
+// store.Symbol(() => console.log("store Symbol: "));
 // import {createStore} from 'redux';
 // import counterReducer from './reducers/counterReducer';
 // let store = createStore(counterReducer);

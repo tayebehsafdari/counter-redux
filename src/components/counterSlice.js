@@ -1,4 +1,16 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {fetchCount} from "./counterAPI";
+
+/* export const incrementAsync = amount => (dispatch, getState) => {
+    setTimeout(() => {
+        dispatch(incrementByAmount(amount));
+    }, 1000);
+}; */
+
+export const incrementAsync = createAsyncThunk('counter/fetchCount', async (amount) => {
+    const response = await fetchCount(amount);
+    return response.data;
+});
 
 export const counterSlice = createSlice({
     name: 'counter',
@@ -17,11 +29,18 @@ export const counterSlice = createSlice({
         },
         onChange: (state, action) => {
             state.count = action.payload
+        },
+        incrementByAmount: (state, action) => {
+            state.count += action.payload;
         }
     }
 });
 
-export const {increment, decrement, reset, onChange} = counterSlice.actions;
-export const selectCount = state => state.count;
+export const {increment, decrement, reset, onChange, incrementByAmount} = counterSlice.actions;
+export const selectCount = state => state.counter.count;
 export default counterSlice.reducer;
+
+console.log("counterSlice: ", counterSlice.actions);
+// console.log("counterSlice: ", counterSlice.actions.increment());
+// console.log("counterSlice: ", counterSlice.reducer({count: 10}, counterSlice.actions.increment()));
 
