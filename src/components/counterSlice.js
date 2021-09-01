@@ -21,18 +21,28 @@ export const counterSlice = createSlice({
     name: 'counter',
     initialState,
     reducers: {
-        increment: state => state.count += 1,
-        decrement: state => state.count -= 1,
-        reset: (state, action) => state.count = action.payload,
-        onChange: (state, action) => state.count = action.payload,
-        incrementByAmount: (state, action) => state.count += action.payload
+        increment: state => {
+            state.count += 1;
+        },
+        decrement: state => {
+            state.count -= 1;
+        },
+        reset: (state, action) => {
+            state.count = action.payload;
+        },
+        onChange: (state, action) => {
+            state.count = action.payload;
+        },
+        incrementByAmount: (state, action) => {
+            state.count += action.payload;
+        }
     },
     extraReducers: builder => {
         builder
             .addCase(incrementAsync.pending, state => state.status = 'loading')
             .addCase(incrementAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.count = action.payload;
+                state.count += action.payload;
             });
     }
 });
